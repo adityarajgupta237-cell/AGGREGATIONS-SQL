@@ -1,0 +1,82 @@
+Question 1 : Count how many cities are there in each country? 
+
+ANS.- SELECT c.Name AS CountryName, COUNT(ci.Name) AS Total_No_Of_Cities
+FROM Country c
+INNER JOIN City ci ON C.Code = ci.CountryCode
+GROUP BY c.Name;
+
+Question 2 : Display all continents having more than 30 countries. 
+
+ANS:- SELECT Continent, COUNT(*) AS NumberOfCountries
+FROM Country
+GROUP BY Continent
+HAVING COUNT(*) > 30 ;
+
+Question 3 : List regions whose total population exceeds 200 million. 
+
+ANS:- SELECT Region , SUM(Population) AS TotaPopulation
+FROM COUNTRY
+GROUP BY Region
+HAVING SUM(Population) > 200000000;
+
+Question 4 : Find the top 5 continents by average GNP per country. 
+
+ANS:- SELECT Continent, AVG(GNP) AS Avg_gnp
+FROM COUNTRY
+GROUP BY Continent
+ORDER BY Avg_gnp DESC
+LIMIT 5;
+
+Question 5 : Find the total number of official languages spoken in each continent.
+
+ANS:- SELECT C.Continent, COUNT(CL.Language) AS OfficialLanguages
+FROM COUNTRY C 
+INNER JOIN CountryLanguage CL ON C.Code = CL.CountryCode
+WHERE CL.IsOfficial = 'T'
+GROUP BY C.Continent;
+
+ Question 6 : Find the maximum and minimum GNP for each continent.
+
+ANS:- SELECT Continent,
+    MAX(GNP) AS Max_GNP,
+    MIN(GNP) AS Min_GNP
+FROM Country 
+GROUP BY Continent;
+
+ Question 7 : Find the country with the highest average city population.
+
+ANS:- SELECT C.Name AS Country , AVG(ci.Population) AS Avg_City_Population
+FROM COUNTRY C
+INNER JOIN City ci ON c.code = ci.CountryCode
+GROUP BY C.Name
+ORDER BY Avg_City_Population DESC
+LIMIT 1;
+
+ Question 8 : List continents where the average city population is greater than 200,000. 
+
+ANS:- SELECT C.Continent, AVG(ci.Population) AS Avg_City_Population
+FROM COUNTRY C
+INNER JOIN City ci ON c.code = ci.CountryCode
+GROUP BY C.Continent
+Having AVG(ci.Population) > 200000;
+
+
+Question 9 : Find the total population and average life expectancy for each continent, ordered by average life expectancy descending.
+
+ANS:- SELECT Continent,
+       SUM(Population) AS Total_Population,
+       AVG(LifeExpectancy) AS AVGLIFEEXPECTANCY
+FROM COUNTRY
+GROUP BY Continent
+ORDER BY AVGLIFEEXPECTANCY DESC;
+
+ Question 10 : Find the top 3 continents with the highest average life expectancy, but only include those where the total population is over 200 million.
+
+ANS:- SELECT Continent,
+       SUM(Population) AS Total_Population,
+       AVG(LifeExpectancy) AS AVGLIFEEXPECTANCY
+FROM COUNTRY
+GROUP BY Continent
+HAVING SUM(Population) > 200000000
+ORDER BY AVGLIFEEXPECTANCY DESC
+LIMIT 3;
